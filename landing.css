@@ -412,3 +412,30 @@ h2 { font-size: clamp(30px, 4.6vw, 54px); }
   .bubble, .firefly, .shoot, .rays, .bird, .pollen,
   .deco-dot, .mcard .dot, .glyph, .dome .shine, .balloon, .fall { animation: none; }
 }
+
+/* ---------- полноэкранные «климаты» состояний ---------- */
+.mood-fx { position: absolute; inset: 0; z-index: 1; opacity: 0; transition: opacity 0.5s ease; pointer-events: none; }
+.mood-fx.on { opacity: 1; }
+.mood-fx span { position: absolute; }
+
+.p-spark { color: var(--sun); animation: twinkle var(--d, 3s) ease-in-out infinite; }
+.p-heart { color: rgba(217, 120, 143, 0.45); bottom: -40px; animation: riseup var(--d, 18s) linear infinite; }
+.p-z { font-weight: 900; color: var(--lav-deep); animation: zrise var(--d, 6s) ease-in infinite; }
+@keyframes zrise {
+  0% { transform: translate(0, 0); opacity: 0; }
+  25% { opacity: 0.4; }
+  100% { transform: translate(34px, -45vh); opacity: 0; }
+}
+.p-flake { top: -30px; color: #9CC1DE; animation: flakefall var(--d, 12s) linear infinite; }
+@keyframes flakefall { to { transform: translateY(112vh) rotate(220deg); } }
+.p-drop { top: -20px; width: 3px; height: 13px; border-radius: 3px; background: rgba(91, 135, 168, 0.38); animation: dropfall var(--d, 5s) linear infinite; }
+@keyframes dropfall { to { transform: translateY(112vh); } }
+.p-cloudlet {
+  width: 96px; height: 28px; border-radius: 999px;
+  background: rgba(156, 193, 222, 0.28); filter: blur(2px);
+  animation: drift var(--d, 20s) linear infinite alternate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .p-spark, .p-heart, .p-z, .p-flake, .p-drop, .p-cloudlet { animation: none; }
+}

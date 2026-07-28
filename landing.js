@@ -107,9 +107,50 @@
       moodCap.querySelector("b").textContent = MOODS[i][0];
       moodCap.querySelector("span").textContent = MOODS[i][1];
       moodDotEls.forEach((d, k) => d.classList.toggle("here", k === i));
+      fxLayers.forEach((layer, k) => layer.classList.toggle("on", k === i));
       if (!first && !reduced) moodBurst();
     }
   }
+
+  /* Полноэкранный «климат» под каждое состояние: слой частиц на всю
+     сцену, переключается вместе с состоянием. */
+  const moodsScene = document.querySelector(".s-moods");
+  const FX_BUILDERS = [
+    // Glowing: золотые искры по всему экрану.
+    host => { for (let k = 0; k < 16; k++) { const s = mkFx(host, "p-spark", k % 2 ? "✦" : "✧");
+      s.style.cssText += `left:${r(2, 96)}%; top:${r(6, 90)}%; font-size:${r(12, 26)}px; --d:${r(2.2, 4.5)}s; animation-delay:${r(0, 3)}s;`; } },
+    // Rested: мягкие плывущие сердечки.
+    host => { for (let k = 0; k < 12; k++) { const s = mkFx(host, "p-heart", "♥");
+      s.style.cssText += `left:${r(3, 95)}%; font-size:${r(11, 22)}px; --d:${r(13, 24)}s; animation-delay:${r(0, 13)}s;`; } },
+    // A bit tired: сонные облачка тянутся по экрану.
+    host => { for (let k = 0; k < 7; k++) { const s = mkFx(host, "p-cloudlet", "");
+      s.style.cssText += `left:${r(2, 84)}%; top:${r(8, 86)}%; scale:${r(0.6, 1.4)}; --d:${r(14, 26)}s; animation-delay:${r(0, 8)}s;`; } },
+    // Sleepy: улетающие «z».
+    host => { for (let k = 0; k < 12; k++) { const s = mkFx(host, "p-z", "z");
+      s.style.cssText += `left:${r(4, 92)}%; top:${r(30, 96)}%; font-size:${r(14, 30)}px; --d:${r(4, 8)}s; animation-delay:${r(0, 6)}s;`; } },
+    // At the limit: снежинки в тон льду на голове.
+    host => { for (let k = 0; k < 14; k++) { const s = mkFx(host, "p-flake", "✻");
+      s.style.cssText += `left:${r(2, 97)}%; font-size:${r(10, 22)}px; --d:${r(8, 16)}s; animation-delay:${r(0, 10)}s;`; } },
+    // Under the weather: тихий дождик.
+    host => { for (let k = 0; k < 18; k++) { const s = mkFx(host, "p-drop", "");
+      s.style.cssText += `left:${r(1, 99)}%; --d:${r(3.5, 6.5)}s; animation-delay:${r(0, 5)}s;`; } },
+  ];
+  // Локальный r: rnd объявляется ниже по файлу, ссылаться на него ещё рано.
+  const r = (a, b) => a + Math.random() * (b - a);
+  function mkFx(host, cls, text) {
+    const s = document.createElement("span");
+    s.className = cls;
+    s.textContent = text;
+    host.appendChild(s);
+    return s;
+  }
+  const fxLayers = FX_BUILDERS.map(build => {
+    const layer = document.createElement("div");
+    layer.className = "mood-fx";
+    build(layer);
+    moodsScene.appendChild(layer);
+    return layer;
+  });
 
   /* Вспышка искр при смене состояния. */
   const moodStageEl = document.getElementById("moodStage");
