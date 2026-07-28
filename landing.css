@@ -384,8 +384,7 @@ h2 { font-size: clamp(30px, 4.6vw, 54px); }
 @keyframes flyby { from { translate: -12vw 0; } to { translate: 112vw -50px; } }
 .pollen { position: absolute; width: 4px; height: 4px; border-radius: 50%; background: rgba(242, 206, 123, 0.7); animation: ffly ease-in-out infinite alternate; }
 
-/* сцена настроений: сцена-подиум и вспышка при смене состояния */
-.mood-stage .ring { position: absolute; inset: -9%; border-radius: 50%; border: 2px dashed rgba(58, 51, 48, 0.12); animation: spin 50s linear infinite; }
+/* сцена настроений: вспышка при смене состояния */
 .mood-burst { position: absolute; font-size: 17px; pointer-events: none; animation: burst 0.7s ease-out forwards; }
 @keyframes burst { from { opacity: 1; transform: translate(0, 0) scale(0.6); } to { opacity: 0; transform: translate(var(--bx), var(--by)) scale(1.25); } }
 
@@ -410,6 +409,6 @@ h2 { font-size: clamp(30px, 4.6vw, 54px); }
 @keyframes falling { to { transform: translateY(112vh) rotate(340deg); } }
 
 @media (prefers-reduced-motion: reduce) {
-  .bubble, .firefly, .shoot, .rays, .bird, .pollen, .mood-stage .ring,
+  .bubble, .firefly, .shoot, .rays, .bird, .pollen,
   .deco-dot, .mcard .dot, .glyph, .dome .shine, .balloon, .fall { animation: none; }
 }
