@@ -3,65 +3,143 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Miso — Privacy Policy</title>
+<title>Privacy Policy — Miso</title>
+<meta name="description" content="Miso's privacy policy: no accounts, no cloud, no analytics. Your health data is processed on your devices and never leaves them.">
+<link rel="icon" href="../assets/app-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../style.css">
 </head>
 <body>
-<main>
-  <a class="home" href="../">← Miso</a>
-  <h1>Privacy Policy</h1>
-  <p class="updated">Effective July 28, 2026</p>
 
-  <p>Miso is built local-first. There are no accounts, no cloud storage and no analytics. Your health data is processed on your iPhone and Apple Watch and never leaves your devices. This policy explains exactly what the app touches and what it does not.</p>
+<header class="site">
+  <a class="wordmark" href="../"><img src="../assets/app-icon.png" alt="">miso</a>
+  <nav class="site">
+    <a href="./">Privacy</a>
+    <a href="../terms/">Terms</a>
+    <a href="mailto:hidalyakaa@gmail.com">Support</a>
+  </nav>
+</header>
 
-  <h2>What Miso reads</h2>
-  <p>With your permission, Miso reads the following from Apple Health:</p>
+<main class="doc">
+  <div class="doc-hero">
+    <img src="../assets/miso-rested.png" alt="">
+    <div>
+      <h1>Privacy Policy</h1>
+      <p class="updated">Effective July 28, 2026 · applies to Miso for iPhone and Apple Watch</p>
+    </div>
+  </div>
+
+  <p class="intro">The short version: Miso has no accounts, no servers, no analytics and no ads. Your health data is read from Apple Health with your permission, processed on your iPhone and Apple Watch, and never leaves your devices. We could not look at your data even if we wanted to, because it is never sent to us.</p>
+
+  <nav class="toc">
+    <a href="#scope">Scope</a>
+    <a href="#reads">What Miso reads</a>
+    <a href="#writes">What Miso writes</a>
+    <a href="#you-enter">What you enter</a>
+    <a href="#storage">Where data lives</a>
+    <a href="#not">What Miso does not do</a>
+    <a href="#subscriptions">Subscriptions</a>
+    <a href="#controls">Your controls</a>
+    <a href="#security">Security</a>
+    <a href="#rights">Your legal rights</a>
+    <a href="#children">Children</a>
+    <a href="#changes">Changes</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <h2 id="scope"><span class="num">1.</span>Who we are and what this covers</h2>
+  <p>Miso is an independent wellness app for iPhone and Apple Watch, published by an individual developer ("we"). This policy covers the Miso app, its widgets and complications, its watch app, and this website. It explains what the app touches on your device, and, just as importantly, what it does not.</p>
+  <p>Miso is designed local-first. There is no Miso backend. This policy is therefore mostly a list of things that never happen.</p>
+
+  <h2 id="reads"><span class="num">2.</span>What Miso reads from Apple Health</h2>
+  <p>With your explicit permission, granted through the standard Apple Health sheet, Miso reads the following categories. You choose what to allow, and the app works with whatever you grant.</p>
+  <table>
+    <tr><th>Data</th><th>Why Miso needs it</th></tr>
+    <tr><td>Sleep, including stages</td><td>The night behind her mood, your sleep score and sleep need</td></tr>
+    <tr><td>Heart rate and resting heart rate</td><td>Recovery and the stress curve of your day</td></tr>
+    <tr><td>Heart rate variability (HRV)</td><td>How recovered your body is versus your own usual</td></tr>
+    <tr><td>Respiratory rate and wrist temperature</td><td>Extra context for how your night went</td></tr>
+    <tr><td>Steps and active energy</td><td>The load side of your day</td></tr>
+    <tr><td>Workouts</td><td>Training load and workout markers on the stress curve</td></tr>
+  </table>
+  <p>You can change or revoke any of these permissions at any time in the Health app: Profile → Privacy → Apps → Miso. Miso keeps working with reduced data, it just knows less about you.</p>
+
+  <h2 id="writes"><span class="num">3.</span>What Miso writes to Apple Health</h2>
+  <p>Exactly one thing: when you finish a breathing session with Miso, the app saves those minutes to Apple Health as a mindful session. Nothing else is ever written. If you erase Miso's data, those mindful sessions stay in Apple Health, where they belong to you and can be deleted from the Health app directly.</p>
+
+  <h2 id="you-enter"><span class="num">4.</span>What you enter yourself</h2>
+  <p>Miso may ask you for a few things directly, all optional:</p>
   <ul>
-    <li>Sleep (including sleep stages)</li>
-    <li>Heart rate and resting heart rate</li>
-    <li>Heart rate variability (HRV)</li>
-    <li>Respiratory rate and wrist temperature</li>
-    <li>Steps, active energy and workouts</li>
+    <li><strong>Journal tags and notes.</strong> Each morning you can tag yesterday (for example caffeine, stress, illness, alcohol, cycle) and add a short note. Some of these tags are sensitive by nature. They are stored only on your device, are used only to find your own patterns, never appear on share cards, and are never transmitted anywhere.</li>
+    <li><strong>Birthday and gender.</strong> Used on device to compute heart rate zones and to tailor the journal. Both are optional and editable in Settings.</li>
+    <li><strong>Preferences.</strong> Your pet's name, bedtime, workout goal, language, theme and notification choices.</li>
   </ul>
-  <p>Miso writes one thing back to Apple Health: breathing minutes, saved as mindful sessions. You can revoke any of these permissions at any time in the Health app (Profile → Privacy → Apps → Miso).</p>
 
-  <h2>What Miso stores, and where</h2>
-  <p>Everything Miso derives from your data (daily scores, baselines, insights, journal entries, your pet's state) is stored only on your iPhone, in the app's private container. A small summary is shared with Miso's own widgets and your paired Apple Watch so they can show the same picture. That transfer happens through Apple's frameworks between your own devices; no server of ours is involved, because we do not have one.</p>
+  <h2 id="storage"><span class="num">5.</span>Where your data lives</h2>
+  <p>Everything Miso computes (daily scores, baselines, insights, journal entries, the pet's state) is stored in the app's private container on your iPhone, protected by iOS sandboxing and your device encryption.</p>
+  <p>A small daily summary is shared with Miso's own widgets and with your paired Apple Watch, so they can show the same picture. That transfer uses Apple's frameworks (App Groups and Watch Connectivity) strictly between your own devices. No server is involved, because there is no server.</p>
+  <p>Data stays as long as you keep it. There is no retention on our side, because there is no "our side": you hold the only copy.</p>
 
-  <h2>What Miso does not do</h2>
+  <h2 id="not"><span class="num">6.</span>What Miso does not do</h2>
   <ul>
-    <li>No accounts and no sign-in</li>
-    <li>No analytics, telemetry or crash reporting services</li>
-    <li>No advertising and no tracking of any kind</li>
-    <li>No selling or sharing of data with third parties</li>
-    <li>No network connections: the app does not talk to any server</li>
-    <li>Health data is never used for marketing</li>
+    <li>No accounts and no sign-in of any kind</li>
+    <li>No cloud storage and no backend</li>
+    <li>No analytics, telemetry or third-party SDKs</li>
+    <li>No advertising, no tracking, no fingerprinting</li>
+    <li>No selling, renting or sharing of data with anyone</li>
+    <li>No network connections from the app at all</li>
+    <li>Health data is never used for marketing, and never will be</li>
   </ul>
+  <p>Crash diagnostics, if iOS records any, are stored as local files on your device. They are shared with us only if you personally choose Settings → Data &amp; privacy → Export diagnostics and send them to us yourself.</p>
 
-  <h2>Journal entries</h2>
-  <p>The journal lets you tag your day (for example stress, caffeine, illness or cycle). These tags are sensitive by nature. They are stored only on your device, are never shared anywhere, and do not appear on share cards you export.</p>
+  <h2 id="subscriptions"><span class="num">7.</span>Subscriptions and payments</h2>
+  <p>Miso Premium is an auto-renewable subscription handled entirely by Apple through your App Store account. Payment details never touch the app: we do not see your card, your name or your billing address. Purchase validation happens on device through Apple's StoreKit. What Apple processes is covered by <a href="https://www.apple.com/legal/privacy/">Apple's privacy policy</a>.</p>
 
-  <h2>Subscriptions</h2>
-  <p>Miso offers an auto-renewable subscription handled entirely by Apple through your App Store account. We never see your payment details. Purchases are validated on-device through Apple's StoreKit.</p>
-
-  <h2>Your data, your control</h2>
+  <h2 id="controls"><span class="num">8.</span>Your controls</h2>
   <ul>
-    <li><strong>Export.</strong> Settings → Data &amp; privacy → Export my data gives you a complete JSON copy of everything Miso has computed.</li>
-    <li><strong>Erase.</strong> Settings → Data &amp; privacy → Erase everything deletes all of Miso's data from your device. Mindful sessions Miso saved to Apple Health stay in Apple Health, where you can delete them yourself.</li>
+    <li><strong>Export.</strong> Settings → Data &amp; privacy → Export my data gives you a complete JSON copy of everything Miso has computed, up to two years of history.</li>
+    <li><strong>Erase.</strong> Settings → Data &amp; privacy → Erase everything deletes Miso's data from your iPhone, its widgets and your paired watch: history, journal, baselines, insights, the widget snapshot and cached pet artwork.</li>
+    <li><strong>Revoke access.</strong> Health permissions can be withdrawn any time in the Health app without deleting anything.</li>
+    <li><strong>Notifications.</strong> Every notification type has its own switch in Settings, including the "miss you" hello.</li>
   </ul>
-  <p>Because nothing is stored off-device, deleting the app (plus the erase step above) removes everything.</p>
+  <p>Deleting the app removes its container. Combined with the erase step above, no trace of your data remains.</p>
 
-  <h2>Children</h2>
-  <p>Miso is not directed at children under 13 and does not knowingly collect information from anyone. It collects no personal information from any user; all processing stays on the device.</p>
+  <h2 id="security"><span class="num">9.</span>Security</h2>
+  <p>Miso relies on the strongest protection available to an iOS app: your data never leaves the device, so there is no transmission to intercept and no server to breach. On device, data sits in the app's sandboxed container, covered by iOS file encryption tied to your passcode and biometrics.</p>
 
-  <h2>Not a medical device</h2>
-  <p>Miso is for general wellness. It does not diagnose, treat or prevent any disease or condition, and it is not a substitute for professional medical advice.</p>
+  <h2 id="rights"><span class="num">10.</span>Your legal rights (GDPR, CCPA and friends)</h2>
+  <p>Privacy laws like the EU GDPR and the California CCPA give you rights over personal data that companies hold about you: access, portability, correction, deletion, objection. Miso's answer to all of them is the same and it is structural: we hold nothing.</p>
+  <ul>
+    <li><strong>Access and portability:</strong> use Export my data, it is the complete set.</li>
+    <li><strong>Deletion:</strong> use Erase everything and delete the app.</li>
+    <li><strong>Sale or sharing of personal information:</strong> none, ever. There is nothing to opt out of.</li>
+  </ul>
+  <p>Health and cycle-related data is "special category" data under GDPR. Miso processes it only on your device, only with your Apple Health consent, and only to show you your own patterns.</p>
 
-  <h2>Changes</h2>
-  <p>If this policy ever changes, the new version will be published at this address with a new effective date. Since the app has no server, a policy change can never retroactively affect data, because we never had any.</p>
+  <h2 id="children"><span class="num">11.</span>Children</h2>
+  <p>Miso is not directed at children under 13 and does not knowingly collect information from anyone, children included. All processing stays on the device. Journal topics such as alcohol appear only for users whose self-reported age is 18 or over.</p>
 
-  <h2>Contact</h2>
-  <p>Questions about privacy: <a href="mailto:hidalyakaa@gmail.com">hidalyakaa@gmail.com</a></p>
+  <h2 id="changes"><span class="num">12.</span>Changes to this policy</h2>
+  <p>If this policy changes, the new version will be published at this address with a new effective date, and material changes will be noted in the app's release notes. Because the app has no server, no change can retroactively affect data we hold, since we never hold any.</p>
+
+  <h2 id="contact"><span class="num">13.</span>Contact</h2>
+  <p>Questions about privacy: <a href="mailto:hidalyakaa@gmail.com">hidalyakaa@gmail.com</a>. Plain questions get plain answers, usually within a few days.</p>
 </main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot">
+      <a class="wordmark" href="../"><img src="../assets/app-icon.png" alt="">miso</a>
+      <nav>
+        <a href="./">Privacy Policy</a>
+        <a href="../terms/">Terms of Use</a>
+        <a href="mailto:hidalyakaa@gmail.com">hidalyakaa@gmail.com</a>
+      </nav>
+    </div>
+    <p class="fine">© 2026 Miso</p>
+  </div>
+</footer>
 </body>
 </html>
