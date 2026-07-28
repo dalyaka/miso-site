@@ -27,7 +27,8 @@
   /* ---------- рельса навигации ---------- */
   scenes.forEach((s, i) => {
     const b = document.createElement("button");
-    b.innerHTML = `<span>${s.dataset.name}</span>`;
+    b.setAttribute("aria-label", s.dataset.name);
+    b.innerHTML = `<span aria-hidden="true">${s.dataset.name}</span>`;
     b.addEventListener("click", () => {
       scrollTo({ top: starts[i] * innerHeight + 4, behavior: reduced ? "auto" : "smooth" });
     });
@@ -254,6 +255,13 @@
   ];
   let lineIdx = Math.floor(Math.random() * LINES.length);
   document.querySelectorAll(".tappable").forEach(pet => {
+    // Кликабельная картинка доступна и с клавиатуры.
+    pet.setAttribute("role", "button");
+    pet.setAttribute("tabindex", "0");
+    pet.setAttribute("aria-label", "Say hi to Miso");
+    pet.addEventListener("keydown", e => {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pet.click(); }
+    });
     const say = pet.parentElement.querySelector(".say") || pet.closest(".inner").querySelector(".say");
     pet.addEventListener("click", () => {
       pet.classList.remove("boing");
