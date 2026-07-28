@@ -161,14 +161,18 @@
       animation-duration:${rnd(3, 7)}s; animation-delay:${rnd(0, 3)}s;`;
     return p;
   });
-  // Парящие буквы четырёх алфавитов у сцены языков.
-  const glyphChars = ["A", "Я", "ñ", "早", "z", "Б", "é", "好", "W", "м"];
-  scatter(document.querySelector(".s-langs"), glyphChars.length, i => {
+  // Парящие приветствия на четырёх языках у сцены языков.
+  const greetWords = ["Hello", "Привет", "Hola", "你好", "Hello", "Привет", "Hola", "你好"];
+  const greetSpots = [
+    [6, 16], [74, 12], [10, 70], [84, 66],
+    [26, 26], [64, 80], [4, 44], [90, 36],
+  ];
+  scatter(document.querySelector(".s-langs"), greetWords.length, i => {
     const g = document.createElement("span");
     g.className = "glyph";
-    g.textContent = glyphChars[i];
-    g.style.cssText = `left:${rnd(4, 92)}%; top:${rnd(12, 84)}%;
-      font-size:${rnd(22, 54)}px; animation-duration:${rnd(4, 8)}s; animation-delay:${rnd(0, 4)}s;`;
+    g.textContent = greetWords[i];
+    g.style.cssText = `left:${greetSpots[i][0]}%; top:${greetSpots[i][1]}%;
+      font-size:${rnd(17, 26)}px; animation-duration:${rnd(4, 8)}s; animation-delay:${rnd(0, 4)}s;`;
     return g;
   });
   // Финал: пастельные шарики по краям и редкое медленное конфетти.
