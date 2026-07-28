@@ -6,152 +6,195 @@
 <title>Miso — a tiny friend who reads your nights</title>
 <meta name="description" content="Miso is a pet for your sleep and recovery. She lives on your iPhone and Apple Watch, reads your nights through Apple Health, and everything stays on your device.">
 <meta property="og:title" content="Miso — a tiny friend who reads your nights">
-<meta property="og:description" content="A pet for your sleep and recovery. No accounts, no cloud, your health data never leaves your device.">
+<meta property="og:description" content="A scroll through Miso's world: her moods, your four quiet numbers, four languages, and a privacy vault with no keys to lose.">
 <meta property="og:image" content="https://dalyaka.github.io/miso-site/assets/app-icon.png">
 <link rel="icon" href="assets/app-icon.png">
 <link rel="apple-touch-icon" href="assets/app-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="landing.css">
 </head>
 <body>
 
-<div class="blobs" aria-hidden="true">
-  <div class="blob p"></div>
-  <div class="blob b"></div>
-  <div class="blob s"></div>
-</div>
-
-<header class="site">
+<header class="film dark" id="filmHeader">
   <a class="wordmark" href="./"><img src="assets/app-icon.png" alt="">miso</a>
-  <nav class="site">
+  <nav>
     <a href="privacy/">Privacy</a>
     <a href="terms/">Terms</a>
     <a href="mailto:hidalyakaa@gmail.com">Support</a>
   </nav>
 </header>
 
-<main class="wrap">
+<div id="rail" class="dark" aria-hidden="true"></div>
 
-  <section class="hero">
-    <div>
-      <h1>A tiny friend who <span class="hl">reads your nights</span></h1>
-      <p class="lead">Miso is a little axolotl who lives on what your Apple Watch hears at night. Sleep well and she glows. Push too hard and she asks for a slow day.</p>
-      <div class="chips">
-        <div class="chip accent">Coming soon to the App&nbsp;Store</div>
-        <div class="chip">iPhone + Apple&nbsp;Watch</div>
-        <div class="chip">🔒 Everything stays on device</div>
+<div id="track">
+<div id="stage">
+
+  <!-- 0 · ночь -->
+  <section class="scene s-night" data-name="Night">
+    <div class="bg"></div>
+    <div class="moon" data-depth="14"></div>
+    <div class="inner">
+      <span class="kicker" style="color:#cfc8f5">While you sleep</span>
+      <h1>This is Miso</h1>
+      <p class="sub">A little axolotl who sleeps when you sleep. Your Apple Watch listens to the night, and she dreams right beside you.</p>
+      <div class="pet-wrap" data-depth="6">
+        <img class="pet floaty tappable" src="assets/miso-night.png" alt="Miso asleep">
+        <div class="zzz"><span>z</span><span>z</span><span>z</span></div>
+        <div class="say"></div>
       </div>
     </div>
-    <div class="hero-art">
-      <div class="glow"></div>
-      <span class="spark s1">✦</span>
-      <span class="spark s2">✧</span>
-      <span class="spark s3">✦</span>
-      <img class="pet" src="assets/miso-glowing.png" alt="Miso the axolotl, glowing after a good night">
-    </div>
+    <div class="hint"><div class="wheel"></div>scroll into the morning</div>
   </section>
 
-  <section class="reveal" id="moods">
-    <div style="text-align:center">
+  <!-- 1 · утро -->
+  <section class="scene s-dawn" data-name="Morning">
+    <div class="bg"></div>
+    <div class="sunball" data-depth="12"></div>
+    <div class="inner">
       <span class="kicker">Every morning</span>
-      <h2>She wears how you slept</h2>
-      <p class="sub" style="margin-left:auto;margin-right:auto">Her mood is never random. It follows your sleep and recovery, and nothing else.</p>
-    </div>
-    <div class="moods">
-      <div class="mood"><img src="assets/miso-glowing.png" alt=""><b>Glowing</b><span>a properly good night</span></div>
-      <div class="mood"><img src="assets/miso-rested.png" alt=""><b>Rested</b><span>ready for the day</span></div>
-      <div class="mood"><img src="assets/miso-bitTired.png" alt=""><b>A bit tired</b><span>could use a calm one</span></div>
-      <div class="mood"><img src="assets/miso-sleepy.png" alt=""><b>Sleepy</b><span>an early night would help</span></div>
-      <div class="mood"><img src="assets/miso-atLimit.png" alt=""><b>At the limit</b><span>she asks for a slow day</span></div>
+      <h2 class="rise" style="--at:0.05">She wears how you slept</h2>
+      <p class="sub rise" style="--at:0.12; color:var(--ink-60)">Keep scrolling and watch her wake up. Sleep well and she glows. Her mood is never random: it follows your night, and nothing else.</p>
+      <div class="pet-wrap" data-depth="6">
+        <img class="sleep-img pet" src="assets/miso-sleepy.png" alt="">
+        <img class="wake pet tappable" src="assets/miso-glowing.png" alt="Miso waking up glowing">
+        <div class="say"></div>
+      </div>
+      <div class="tapme rise" style="--at:0.5">psst, you can tap her</div>
     </div>
   </section>
 
-  <section class="reveal">
-    <div class="split">
-      <div class="txt">
-        <span class="kicker blue">One honest screen</span>
-        <h2>Four quiet numbers, one small face</h2>
-        <p class="sub">No score soup, no red alarms. Just the day as your body sees it.</p>
-        <div class="scales">
-          <div class="scale"><span class="dot blue"></span><div><b>Sleep</b><p>How the night actually went, stages included.</p></div></div>
-          <div class="scale"><span class="dot sage"></span><div><b>Recovery</b><p>How much is in the tank this morning.</p></div></div>
-          <div class="scale"><span class="dot blue"></span><div><b>Load</b><p>How heavy the day already is, workouts and all.</p></div></div>
-          <div class="scale"><span class="dot lav"></span><div><b>Stress</b><p>Your whole day drawn as one line. Peaks are moments, not verdicts.</p></div></div>
+  <!-- 2 · настроения -->
+  <section class="scene s-moods" data-name="Moods">
+    <div class="bg"></div>
+    <div class="inner">
+      <span class="kicker">Her whole range</span>
+      <h2>Scroll through her moods</h2>
+      <div class="mood-stage" data-depth="5" id="moodStage">
+        <img src="assets/miso-glowing.png" alt="">
+        <img src="assets/miso-rested.png" alt="">
+        <img src="assets/miso-bitTired.png" alt="">
+        <img src="assets/miso-sleepy.png" alt="">
+        <img src="assets/miso-atLimit.png" alt="">
+        <img src="assets/miso-sick.png" alt="">
+      </div>
+      <div class="mood-cap" id="moodCap"><b></b><span></span></div>
+      <div class="mood-dots" id="moodDots"></div>
+    </div>
+  </section>
+
+  <!-- 3 · метрики -->
+  <section class="scene s-metrics" data-name="Numbers">
+    <div class="bg"></div>
+    <div class="inner">
+      <span class="kicker">One honest screen</span>
+      <h2 class="rise" style="--at:0">Four quiet numbers</h2>
+      <p class="sub rise" style="--at:0.05; color:var(--ink-60)">No score soup, no red alarms. Just the day as your body sees it.</p>
+      <div class="metric-grid">
+        <div class="mcard" style="--at:0.1; --tilt:-2deg"><div class="dot" style="background:var(--blue)"></div><b>Sleep</b><p>The night, stages included</p><div class="big" style="color:var(--blue-deep)">7h 40m</div></div>
+        <div class="mcard" style="--at:0.18; --tilt:1.5deg"><div class="dot" style="background:var(--sage)"></div><b>Recovery</b><p>What's in the tank</p><div class="big" style="color:var(--sage-deep)">81%</div></div>
+        <div class="mcard" style="--at:0.26; --tilt:-1.5deg"><div class="dot" style="background:var(--blue)"></div><b>Load</b><p>How heavy the day is</p><div class="big" style="color:var(--blue-deep)">40</div></div>
+        <div class="mcard" style="--at:0.34; --tilt:2deg"><div class="dot" style="background:var(--lav)"></div><b>Stress</b><p>Moments, not verdicts</p><div class="big" style="color:var(--lav-deep)">low</div></div>
+      </div>
+      <div class="curve-wrap rise" style="--at:0.4">
+        <div class="lbl"><span>STRESS · TODAY</span><span>drawn by your scroll</span></div>
+        <svg viewBox="0 0 640 130" aria-hidden="true">
+          <path id="stressPath" d="M8 92 C 60 90, 90 88, 120 84 S 170 60, 196 58 S 240 84, 280 86 S 330 88, 360 84 S 400 40, 428 34 S 470 66, 510 78 S 590 88, 632 84"/>
+          <circle id="stressDot" cx="632" cy="84" r="6"/>
+        </svg>
+        <div class="lbl"><span>night</span><span>morning</span><span>now</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · инсайты -->
+  <section class="scene s-insights" data-name="Insights">
+    <div class="bg"></div>
+    <div class="inner">
+      <span class="kicker">From your own nights</span>
+      <h2 class="rise" style="--at:0">She learns what helps your sleep</h2>
+      <p class="sub rise" style="--at:0.06; color:var(--ink-60)">Tag your day in ten seconds each morning. Give her a couple of weeks and tap the tags to see how she sorts your life. Green helps, lavender hurts, and it is always your data, never averages.</p>
+      <div class="tags" id="tags">
+        <button class="tag" style="--at:0.12" data-kind="hurts">☕ late caffeine</button>
+        <button class="tag" style="--at:0.16" data-kind="helps">🚶 evening walk</button>
+        <button class="tag" style="--at:0.20" data-kind="hurts">🍝 late meal</button>
+        <button class="tag" style="--at:0.24" data-kind="helps">📖 reading in bed</button>
+        <button class="tag" style="--at:0.28" data-kind="hurts">😵 stressful day</button>
+        <button class="tag" style="--at:0.32" data-kind="hurts">🍷 alcohol</button>
+        <button class="tag" style="--at:0.36" data-kind="helps">🏊 morning swim</button>
+        <button class="tag" style="--at:0.40" data-kind="hurts">📱 doomscrolling</button>
+      </div>
+      <div class="verdict" id="verdict">tap a tag, she'll tell you what she noticed</div>
+    </div>
+  </section>
+
+  <!-- 5 · языки -->
+  <section class="scene s-langs" data-name="Languages">
+    <div class="bg"></div>
+    <div class="inner">
+      <span class="kicker">She speaks your language</span>
+      <h2 class="rise" style="--at:0">Four good mornings</h2>
+      <p class="sub rise" style="--at:0.05; color:var(--ink-60)">The whole app, her bubbles, the watch and the widgets live in four languages.</p>
+      <div class="lang-stage">
+        <img class="pet floaty tappable" src="assets/miso-meeting.png" alt="Miso saying hi" data-depth="5">
+        <div class="say"></div>
+        <div class="bubbles" id="bubbles">
+          <div class="lb" data-at="0.25"><small>English</small>Good morning, come see how we slept</div>
+          <div class="lb" data-at="0.42"><small>Русский</small>Доброе утро, посмотри, как мы спали</div>
+          <div class="lb" data-at="0.59"><small>Español</small>Buenos días, mira cómo hemos dormido</div>
+          <div class="lb" data-at="0.76"><small>简体中文</small>早上好，来看看我们睡得怎么样</div>
         </div>
       </div>
-      <div class="phone"><img src="assets/shot-home.png" alt="Miso home screen with sleep, recovery, load and the stress curve"></div>
+      <p class="note">She never says she "feels" your data. She reads it, hears it, notices it. Words matter to her.</p>
     </div>
   </section>
 
-  <section class="reveal">
-    <div class="split rev">
-      <div class="txt">
-        <span class="kicker sage">From your own nights</span>
-        <h2>She learns what helps your sleep</h2>
-        <p class="sub">Coffee after lunch? A late meal? A stressful Tuesday? Tag your day in ten seconds each morning, and Miso slowly works out what actually helps you and what hurts. She compares you only to your usual. Never to other people, never to population norms.</p>
+  <!-- 6 · хранилище -->
+  <section class="scene s-vault" data-name="Privacy">
+    <div class="bg"></div>
+    <div class="inner">
+      <span class="kicker">The vault room</span>
+      <h2 class="rise" style="--at:0">Your nights stay in here</h2>
+      <p class="sub rise" style="--at:0.06">Miso has no servers. Not "we promise not to look": there is nowhere to send your data, so it never leaves your devices.</p>
+      <div class="dome-wrap" data-depth="5">
+        <div class="dome" id="dome">
+          <img src="assets/miso-night.png" alt="Miso safe inside a glass dome">
+        </div>
+        <div class="padlock">🔒</div>
       </div>
-      <div class="phone"><img src="assets/shot-insights.png" alt="Insights screen showing what helps and hurts sleep"></div>
-    </div>
-  </section>
-
-  <section class="reveal">
-    <div class="split">
-      <div class="txt">
-        <span class="kicker lav">Stress, without the drama</span>
-        <h2>The day as one line</h2>
-        <p class="sub">A single soft curve from night to now. When it climbs, she offers a minute of breathing together. And whatever the line does, it never changes how she looks at you.</p>
-      </div>
-      <div class="phone"><img src="assets/shot-stress.png" alt="Stress detail screen with the day curve"></div>
-    </div>
-  </section>
-
-  <section class="reveal">
-    <div class="privacy-card">
-      <span class="kicker">Private by design</span>
-      <h2>Your nights are nobody's business</h2>
-      <p class="sub">Miso has no servers. Not "we promise not to look". There is nowhere to send your data, so it never leaves.</p>
       <div class="tenets">
-        <div class="tenet"><b>No accounts</b><span>Nothing to sign up for, nothing to leak.</span></div>
-        <div class="tenet"><b>No cloud</b><span>Everything is computed on your iPhone.</span></div>
-        <div class="tenet"><b>No analytics</b><span>No trackers, no third-party SDKs, no network calls.</span></div>
-        <div class="tenet"><b>Your data, truly</b><span>Export it as JSON or erase every trace, any time.</span></div>
+        <div class="t" style="--at:0.3">No accounts</div>
+        <div class="t" style="--at:0.38">No cloud</div>
+        <div class="t" style="--at:0.46">No analytics</div>
+        <div class="t" style="--at:0.54">Export or erase anytime</div>
       </div>
-      <a class="more" href="privacy/">Read the full Privacy Policy →</a>
+      <p class="sub rise" style="--at:0.6; font-size:14px"><a href="privacy/" style="color:var(--pink); font-weight:800">Read the full Privacy Policy →</a></p>
     </div>
   </section>
 
-  <section class="reveal promise">
-    <img src="assets/miso-sleepy.png" alt="Sleepy Miso">
-    <span class="kicker">The Miso promise</span>
-    <h2>She never dies. She never shames you.</h2>
-    <p class="sub" style="margin-left:auto;margin-right:auto">No streaks to lose, no guilt, no screaming red numbers. A rough week makes her sleepy, not disappointed. She is glad you came back, every single time.</p>
+  <!-- 7 · финал -->
+  <section class="scene s-fin" data-name="Hello">
+    <div class="bg"></div>
+    <div class="inner">
+      <img class="pet floaty tappable" id="finPet" src="assets/miso-birthday.png" alt="Miso in a party hat" data-depth="5">
+      <div class="say"></div>
+      <span class="kicker">The Miso promise</span>
+      <h2>She never dies.<br>She never shames you.</h2>
+      <p class="sub" style="color:var(--ink-60)">No streaks to lose, no guilt, no screaming red numbers. A rough week makes her sleepy, not disappointed. Tap her for confetti, she earned it.</p>
+      <div class="chips">
+        <div class="chip dark">Coming soon to the App Store</div>
+        <div class="chip">iPhone + Apple Watch</div>
+        <div class="chip">Two free weeks, everything open</div>
+      </div>
+      <p class="legal"><a href="privacy/">Privacy Policy</a>·<a href="terms/">Terms of Use</a>·<a href="mailto:hidalyakaa@gmail.com">hidalyakaa@gmail.com</a></p>
+      <p class="fine">Miso is a general wellness app, not a medical device. It does not diagnose, treat or prevent any condition. Talk to a doctor about anything that worries you. © 2026 Miso</p>
+    </div>
   </section>
 
-</main>
+</div>
+</div>
 
-<footer class="site">
-  <div class="wrap">
-    <div class="foot">
-      <a class="wordmark" href="./"><img src="assets/app-icon.png" alt="">miso</a>
-      <nav>
-        <a href="privacy/">Privacy Policy</a>
-        <a href="terms/">Terms of Use</a>
-        <a href="mailto:hidalyakaa@gmail.com">hidalyakaa@gmail.com</a>
-      </nav>
-    </div>
-    <p class="fine">Miso is a general wellness app, not a medical device. It does not diagnose, treat or prevent any condition. Talk to a doctor about anything that worries you. Apple Health, Apple Watch and iPhone are trademarks of Apple Inc.</p>
-    <p class="fine">© 2026 Miso</p>
-  </div>
-</footer>
-
-<script>
-  const io = new IntersectionObserver(
-    entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }),
-    { threshold: 0.12 }
-  );
-  document.querySelectorAll(".reveal").forEach(el => io.observe(el));
-</script>
+<script src="landing.js"></script>
 </body>
 </html>
