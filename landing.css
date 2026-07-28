@@ -363,10 +363,6 @@ h2 { font-size: clamp(30px, 4.6vw, 54px); }
 /* ---------- декорации миров ---------- */
 @keyframes spin { to { rotate: 360deg; } }
 
-/* пунктирные гало вокруг Мисо в интро */
-.halo { position: absolute; inset: -12%; border-radius: 50%; border: 2px dashed rgba(217, 120, 143, 0.28); animation: spin 42s linear infinite; pointer-events: none; }
-.halo.h2v { inset: -28%; border-color: rgba(143, 191, 159, 0.24); animation-duration: 70s; animation-direction: reverse; }
-
 /* всплывающие пузыри (интро и лаборатория инсайтов) */
 .bubble { position: absolute; bottom: -50px; border-radius: 50%; background: var(--bub, rgba(242, 169, 188, 0.3)); animation: riseup linear infinite; pointer-events: none; }
 @keyframes riseup { to { transform: translateY(-115vh); opacity: 0; } }
@@ -414,6 +410,6 @@ h2 { font-size: clamp(30px, 4.6vw, 54px); }
 @keyframes falling { to { transform: translateY(112vh) rotate(340deg); } }
 
 @media (prefers-reduced-motion: reduce) {
-  .halo, .bubble, .firefly, .shoot, .rays, .bird, .pollen, .mood-stage .ring,
+  .bubble, .firefly, .shoot, .rays, .bird, .pollen, .mood-stage .ring,
   .deco-dot, .mcard .dot, .glyph, .dome .shine, .balloon, .fall { animation: none; }
 }
