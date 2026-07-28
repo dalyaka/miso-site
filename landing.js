@@ -101,17 +101,96 @@
     });
     const i = Math.max(0, Math.min(MOODS.length - 1, Math.round(f)));
     if (i !== moodIdx) {
+      const first = moodIdx < 0;
       moodIdx = i;
       moodCap.querySelector("b").textContent = MOODS[i][0];
       moodCap.querySelector("span").textContent = MOODS[i][1];
       moodDotEls.forEach((d, k) => d.classList.toggle("here", k === i));
+      if (!first && !reduced) moodBurst();
+    }
+  }
+
+  /* Вспышка искр при смене состояния. */
+  const moodStageEl = document.getElementById("moodStage");
+  function moodBurst() {
+    for (let k = 0; k < 6; k++) {
+      const s = document.createElement("span");
+      s.className = "mood-burst";
+      s.textContent = k % 2 ? "✧" : "✦";
+      s.style.cssText = `left:50%; top:42%; color:${palette[k % palette.length]};
+        --bx:${rnd(-80, 80)}px; --by:${rnd(-70, 40)}px;`;
+      moodStageEl.appendChild(s);
+      setTimeout(() => s.remove(), 750);
     }
   }
 
   /* ---------- пузыри языков ---------- */
   const bubbles = [...document.querySelectorAll("#bubbles .lb")];
 
+  /* ---------- рассыпные декорации миров ---------- */
+  const rnd = (a, b) => a + Math.random() * (b - a);
+  function scatter(host, n, make) {
+    for (let i = 0; i < n; i++) host.appendChild(make(i));
+  }
+  // Светлячки в ночи.
+  scatter(night, 7, () => {
+    const f = document.createElement("i");
+    f.className = "firefly";
+    f.style.cssText = `left:${rnd(6, 94)}%; top:${rnd(32, 82)}%;
+      animation-duration:${rnd(3, 6)}s; animation-delay:${rnd(0, 3)}s;`;
+    return f;
+  });
+  // Всплывающие пузыри: интро и лаборатория инсайтов.
+  const bubTints = ["rgba(242,169,188,0.3)", "rgba(156,193,222,0.3)", "rgba(143,191,159,0.3)"];
+  for (const [sel, n] of [[".s-meet", 8], [".s-insights", 10]]) {
+    scatter(document.querySelector(sel), n, i => {
+      const b = document.createElement("i");
+      b.className = "bubble";
+      const size = rnd(8, 22);
+      b.style.cssText = `left:${rnd(3, 97)}%; width:${size}px; height:${size}px;
+        --bub:${bubTints[i % 3]}; animation-duration:${rnd(14, 26)}s; animation-delay:${rnd(0, 14)}s;`;
+      return b;
+    });
+  }
+  // Пыльца в утреннем воздухе.
+  scatter(document.querySelector(".s-dawn"), 6, () => {
+    const p = document.createElement("i");
+    p.className = "pollen";
+    p.style.cssText = `left:${rnd(8, 92)}%; top:${rnd(30, 80)}%;
+      animation-duration:${rnd(3, 7)}s; animation-delay:${rnd(0, 3)}s;`;
+    return p;
+  });
+  // Парящие буквы четырёх алфавитов у сцены языков.
+  const glyphChars = ["A", "Я", "ñ", "早", "z", "Б", "é", "好", "W", "м"];
+  scatter(document.querySelector(".s-langs"), glyphChars.length, i => {
+    const g = document.createElement("span");
+    g.className = "glyph";
+    g.textContent = glyphChars[i];
+    g.style.cssText = `left:${rnd(4, 92)}%; top:${rnd(12, 84)}%;
+      font-size:${rnd(22, 54)}px; animation-duration:${rnd(4, 8)}s; animation-delay:${rnd(0, 4)}s;`;
+    return g;
+  });
+  // Финал: пастельные шарики по краям и редкое медленное конфетти.
+  const fin = document.querySelector(".s-fin");
+  const balloonX = [6, 14, 82, 90, 72];
+  scatter(fin, balloonX.length, i => {
+    const b = document.createElement("i");
+    b.className = "balloon";
+    b.style.cssText = `left:${balloonX[i]}%; top:${rnd(20, 55)}%;
+      background:${palette[i % palette.length]}; animation-duration:${rnd(4, 7)}s; animation-delay:${rnd(0, 2)}s;`;
+    return b;
+  });
+  scatter(fin, 10, i => {
+    const c = document.createElement("i");
+    c.className = "fall";
+    c.style.cssText = `left:${rnd(2, 98)}%; background:${palette[i % palette.length]};
+      animation-duration:${rnd(9, 16)}s; animation-delay:${rnd(0, 10)}s;`;
+    return c;
+  });
+
   /* ---------- главный цикл ---------- */
+  const moonEl = document.querySelector(".moon");
+  const sunEl = document.querySelector(".sunball");
   // ?t=0.35 — замороженный кадр таймлайна для скриншотов и отладки.
   const FORCED = new URLSearchParams(location.search).get("t");
   let active = -1;
@@ -140,6 +219,16 @@
     if (name === "States") setMoods(p);
     if (name === "Languages") bubbles.forEach(b => b.classList.toggle("show", p >= +b.dataset.at));
     if (name === "Privacy" && !reduced) orbit(now);
+    // Луна и солнце плывут по небу дугой, а не по вертикали.
+    if (name === "Night") {
+      moonEl.style.left = `${75 - 58 * p}%`;
+      moonEl.style.top = `${40 - 26 * Math.sin(p * Math.PI)}%`;
+    }
+    if (name === "Morning") {
+      const th = p * Math.PI / 2;
+      sunEl.style.left = `${8 + 42 * (1 - Math.cos(th))}%`;
+      sunEl.style.top = `${72 - 52 * Math.sin(th)}%`;
+    }
 
     requestAnimationFrame(frame);
   }

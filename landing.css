@@ -186,9 +186,8 @@ h2 { font-size: clamp(30px, 4.6vw, 54px); }
 .star { position: absolute; background: #fff; border-radius: 50%; opacity: 0.7; animation: twinkle 3s ease-in-out infinite; }
 @keyframes twinkle { 0%, 100% { opacity: 0.15; } 50% { opacity: 0.85; } }
 .moon {
-  position: absolute; right: 12%; width: 92px; height: 92px; border-radius: 50%;
+  position: absolute; left: 75%; top: 40%; width: 92px; height: 92px; border-radius: 50%;
   background: #F6EFC9; box-shadow: 0 0 60px 14px rgba(246, 239, 201, 0.35);
-  top: calc(18% + var(--p) * 30%);
 }
 .moon::after {
   content: ""; position: absolute; inset: 8px 8px auto auto; width: 22px; height: 22px;
@@ -206,10 +205,9 @@ h2 { font-size: clamp(30px, 4.6vw, 54px); }
 /* ================= СЦЕНА 1 · утро ================= */
 .s-dawn .bg { background: linear-gradient(180deg, #FBD3B8, #FAE7CF 45%, var(--cream)); }
 .sunball {
-  position: absolute; left: 14%; width: 110px; height: 110px; border-radius: 50%;
+  position: absolute; left: 8%; top: 72%; width: 110px; height: 110px; border-radius: 50%;
   background: radial-gradient(circle, #FFE9A8, var(--sun));
   box-shadow: 0 0 80px 22px rgba(242, 206, 123, 0.5);
-  bottom: calc(6% + var(--p) * 38%);
 }
 .s-dawn .kicker { color: var(--pink-deep); }
 .s-dawn .pet-wrap { position: relative; height: clamp(220px, 30vw, 320px); width: clamp(220px, 30vw, 320px); margin-top: 10px; }
@@ -348,4 +346,62 @@ h2 { font-size: clamp(30px, 4.6vw, 54px); }
 @media (prefers-reduced-motion: reduce) {
   .pet.floaty, .hint .wheel::after, .star, .zzz span { animation: none; }
   .scene { transition: none; }
+}
+
+/* ---------- декорации миров ---------- */
+@keyframes spin { to { rotate: 360deg; } }
+
+/* пунктирные гало вокруг Мисо в интро */
+.halo { position: absolute; inset: -12%; border-radius: 50%; border: 2px dashed rgba(217, 120, 143, 0.28); animation: spin 42s linear infinite; pointer-events: none; }
+.halo.h2v { inset: -28%; border-color: rgba(143, 191, 159, 0.24); animation-duration: 70s; animation-direction: reverse; }
+
+/* всплывающие пузыри (интро и лаборатория инсайтов) */
+.bubble { position: absolute; bottom: -50px; border-radius: 50%; background: var(--bub, rgba(242, 169, 188, 0.3)); animation: riseup linear infinite; pointer-events: none; }
+@keyframes riseup { to { transform: translateY(-115vh); opacity: 0; } }
+
+/* ночь: светлячки и падающие звёзды */
+.firefly { position: absolute; width: 5px; height: 5px; border-radius: 50%; background: #F6EFC9; box-shadow: 0 0 10px 3px rgba(246, 239, 201, 0.45); opacity: 0.8; animation: ffly ease-in-out infinite alternate; }
+@keyframes ffly { from { transform: translate(0, 0); } to { transform: translate(28px, -36px); } }
+.shoot { position: absolute; width: 130px; height: 2px; border-radius: 2px; background: linear-gradient(90deg, #fff, transparent); rotate: -24deg; opacity: 0; animation: shoot 8s ease-in infinite; pointer-events: none; }
+.shoot.sh2 { animation-delay: 4.2s; }
+@keyframes shoot { 0%, 86% { opacity: 0; translate: 0 0; } 89% { opacity: 0.9; } 100% { opacity: 0; translate: -260px 120px; } }
+
+/* утро: лучи в солнце, птицы, пыльца */
+.rays { position: absolute; inset: -70%; border-radius: 50%; background: repeating-conic-gradient(rgba(242, 206, 123, 0.2) 0 9deg, transparent 9deg 26deg); animation: spin 55s linear infinite; pointer-events: none; }
+.bird { position: absolute; width: 30px; height: 12px; opacity: 0.5; animation: flyby 20s linear infinite; pointer-events: none; }
+.bird::before, .bird::after { content: ""; position: absolute; width: 16px; height: 2.6px; border-radius: 3px; background: rgba(58, 51, 48, 0.55); top: 5px; }
+.bird::before { left: 0; transform: rotate(-22deg); transform-origin: right center; }
+.bird::after { right: 0; transform: rotate(22deg); transform-origin: left center; }
+.bird.b2 { animation-delay: 7s; scale: 0.65; }
+@keyframes flyby { from { translate: -12vw 0; } to { translate: 112vw -50px; } }
+.pollen { position: absolute; width: 4px; height: 4px; border-radius: 50%; background: rgba(242, 206, 123, 0.7); animation: ffly ease-in-out infinite alternate; }
+
+/* сцена настроений: сцена-подиум и вспышка при смене состояния */
+.mood-stage .ring { position: absolute; inset: -9%; border-radius: 50%; border: 2px dashed rgba(58, 51, 48, 0.12); animation: spin 50s linear infinite; }
+.mood-burst { position: absolute; font-size: 17px; pointer-events: none; animation: burst 0.7s ease-out forwards; }
+@keyframes burst { from { opacity: 1; transform: translate(0, 0) scale(0.6); } to { opacity: 0; transform: translate(var(--bx), var(--by)) scale(1.25); } }
+
+/* метрики: мягкие цветные пятна и пульс точек */
+.deco-dot { position: absolute; border-radius: 50%; filter: blur(34px); opacity: 0.45; pointer-events: none; }
+.mcard .dot { animation: pulse 2.6s ease-in-out infinite; }
+@keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.35); } }
+
+/* языки: парящие буквы четырёх алфавитов */
+.glyph { position: absolute; font-weight: 900; color: var(--lav-deep); opacity: 0.13; animation: gfloat ease-in-out infinite alternate; pointer-events: none; user-select: none; }
+@keyframes gfloat { from { transform: translateY(0) rotate(-7deg); } to { transform: translateY(-28px) rotate(7deg); } }
+
+/* хранилище: блик по стеклу купола */
+.dome .shine { position: absolute; top: -20%; bottom: -20%; width: 32%; left: -45%; background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.13), transparent); rotate: 8deg; animation: sweep 5.5s ease-in-out infinite; }
+@keyframes sweep { 0%, 55% { left: -45%; } 100% { left: 120%; } }
+
+/* финал: шарики и редкое медленное конфетти */
+.balloon { position: absolute; width: 36px; height: 44px; border-radius: 50% 50% 47% 47%; opacity: 0.85; animation: bfloat ease-in-out infinite alternate; pointer-events: none; }
+.balloon::after { content: ""; position: absolute; left: 50%; top: 99%; width: 1.5px; height: 48px; background: rgba(58, 51, 48, 0.22); }
+@keyframes bfloat { from { transform: translateY(0) rotate(-4deg); } to { transform: translateY(-24px) rotate(4deg); } }
+.fall { position: absolute; top: -20px; width: 8px; height: 11px; border-radius: 2px; opacity: 0.65; animation: falling linear infinite; pointer-events: none; }
+@keyframes falling { to { transform: translateY(112vh) rotate(340deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .halo, .bubble, .firefly, .shoot, .rays, .bird, .pollen, .mood-stage .ring,
+  .deco-dot, .mcard .dot, .glyph, .dome .shine, .balloon, .fall { animation: none; }
 }
