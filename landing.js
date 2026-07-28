@@ -9,11 +9,17 @@
   const rail = document.getElementById("rail");
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  const PER = 1.5; // высот экрана скролла на сцену
   const DARK = new Set(["Night", "Privacy"]);
 
+  // Один экран скролла = одна сцена; сценам с внутренней хореографией
+  // (настроения, языки) выдан вес чуть больше через data-len.
+  const lens = scenes.map(s => +(s.dataset.len || 1));
+  const total = lens.reduce((a, b) => a + b, 0);
+  const starts = [];
+  lens.reduce((acc, l, i) => { starts[i] = acc; return acc + l; }, 0);
+
   function sizeTrack() {
-    track.style.height = `${scenes.length * PER * 100}vh`;
+    track.style.height = `${total * 100 + 100}vh`;
   }
   sizeTrack();
   addEventListener("resize", sizeTrack);
@@ -23,7 +29,7 @@
     const b = document.createElement("button");
     b.innerHTML = `<span>${s.dataset.name}</span>`;
     b.addEventListener("click", () => {
-      scrollTo({ top: i * PER * innerHeight + 4, behavior: reduced ? "auto" : "smooth" });
+      scrollTo({ top: starts[i] * innerHeight + 4, behavior: reduced ? "auto" : "smooth" });
     });
     rail.appendChild(b);
   });
@@ -68,24 +74,32 @@
   const moodCap = document.getElementById("moodCap");
   const moodDots = document.getElementById("moodDots");
   const MOODS = [
-    ["Glowing", "a properly good night"],
-    ["Rested", "ready for the day"],
-    ["A bit tired", "could use a calm one"],
-    ["Sleepy", "an early night would help"],
-    ["At the limit", "she asks for a slow day, ice pack and all"],
-    ["Under the weather", "she rests with you, no judgement"],
+    ["Glowing", "after an excellent night"],
+    ["Rested", "recovered and ready"],
+    ["A bit tired", "worth an easier day"],
+    ["Sleepy", "an earlier night would help"],
+    ["At the limit", "time for a recovery day"],
+    ["Under the weather", "she takes it slow with you"],
   ];
   MOODS.forEach(() => moodDots.appendChild(document.createElement("i")));
   const moodDotEls = [...moodDots.children];
   let moodIdx = -1;
+  // Догоняющий указатель: при резком скролле состояния пробегают по
+  // очереди, а не перепрыгивают. Кадры не смешиваются: в каждый момент
+  // видно ровно одно лицо (жёсткая смена с лёгким поп-масштабом).
+  let moodF = 0;
   function setMoods(p) {
-    const f = Math.min(MOODS.length - 1e-4, p * MOODS.length);
+    const target = Math.min(MOODS.length - 1e-4, p * MOODS.length);
+    moodF += (target - moodF) * 0.16;
+    if (Math.abs(target - moodF) < 0.003) moodF = target;
+    const f = moodF;
     moodImgs.forEach((img, i) => {
-      const d = Math.min(1, Math.abs(f - i));
-      img.style.opacity = (1 - d).toFixed(3);
-      img.style.transform = `scale(${0.92 + (1 - d) * 0.08}) rotate(${(f - i) * -4}deg)`;
+      const d = Math.abs(f - i);
+      const on = d < 0.5 || (i === MOODS.length - 1 && f >= MOODS.length - 0.5);
+      img.style.opacity = on ? "1" : "0";
+      img.style.transform = `scale(${on ? 1 - Math.min(0.1, d * 0.2) : 0.9})`;
     });
-    const i = Math.round(Math.min(MOODS.length - 1, f));
+    const i = Math.max(0, Math.min(MOODS.length - 1, Math.round(f)));
     if (i !== moodIdx) {
       moodIdx = i;
       moodCap.querySelector("b").textContent = MOODS[i][0];
@@ -107,9 +121,10 @@
     const t = FORCED !== null
       ? Math.min(1, Math.max(0, +FORCED))
       : Math.min(1, Math.max(0, scrollY / max));
-    const f = t * scenes.length;
-    const i = Math.min(scenes.length - 1, Math.floor(f));
-    const p = Math.min(1, f - i);
+    const u = t * total;
+    let i = scenes.length - 1;
+    while (i > 0 && u < starts[i]) i--;
+    const p = Math.min(1, (u - starts[i]) / lens[i]);
 
     if (i !== active) {
       active = i;
@@ -122,7 +137,7 @@
     scenes[i].style.setProperty("--p", p.toFixed(4));
 
     const name = scenes[i].dataset.name;
-    if (name === "Moods") setMoods(p);
+    if (name === "States") setMoods(p);
     if (name === "Languages") bubbles.forEach(b => b.classList.toggle("show", p >= +b.dataset.at));
     if (name === "Privacy" && !reduced) orbit(now);
 
@@ -145,9 +160,8 @@
 
   /* ---------- реплики по тапу ---------- */
   const LINES = [
-    "Hello!", "You found me", "Tap tap tap", "Привет!", "¡Hola!", "你好！",
-    "I read nights, not minds", "*happy wiggle*", "Five more minutes…",
-    "Your usual is my favourite", "No red numbers here", "zzz… oh! hi",
+    "Hello!", "Привет!", "¡Hola!", "你好！",
+    "Good to see you", "Sleep well tonight", "zzz… oh, hi",
   ];
   let lineIdx = Math.floor(Math.random() * LINES.length);
   document.querySelectorAll(".tappable").forEach(pet => {
@@ -173,8 +187,8 @@
   /* ---------- теги инсайтов ---------- */
   const verdict = document.getElementById("verdict");
   const VERDICTS = {
-    helps: ["adds recovery on nights after. Keep it", "your deep sleep likes this one", "+12 min of deep sleep on average. She approves"],
-    hurts: ["costs you deep sleep. She noticed", "nights after this run shorter. Just saying", "recovery dips the morning after. No shame, just data"],
+    helps: ["is followed by better recovery in your data", "correlates with more deep sleep", "tends to precede your better nights"],
+    hurts: ["is followed by lighter sleep", "tends to precede shorter nights", "correlates with lower next-morning recovery"],
   };
   document.querySelectorAll("#tags .tag").forEach(tag => {
     tag.addEventListener("click", () => {
@@ -184,7 +198,7 @@
       if (!was) tag.classList.add(kind);
       const list = VERDICTS[kind];
       verdict.textContent = was
-        ? "she keeps watching, quietly"
+        ? "noted, she keeps collecting data"
         : `${tag.textContent.replace(/^[^ ]+ /, "")} ${list[Math.floor(Math.random() * list.length)]}`;
       verdict.style.color = kind === "helps" ? "var(--sage-deep)" : "var(--lav-deep)";
     });
@@ -233,6 +247,6 @@
     if (e.key !== "ArrowDown" && e.key !== "ArrowUp") return;
     e.preventDefault();
     const next = Math.min(scenes.length - 1, Math.max(0, active + (e.key === "ArrowDown" ? 1 : -1)));
-    scrollTo({ top: next * PER * innerHeight + 4, behavior: reduced ? "auto" : "smooth" });
+    scrollTo({ top: starts[next] * innerHeight + 4, behavior: reduced ? "auto" : "smooth" });
   });
 })();

@@ -114,8 +114,8 @@ h2 { font-size: clamp(30px, 4.6vw, 54px); }
 
 .hint {
   position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%);
-  z-index: 5; color: #F6EFE3; font-weight: 800; font-size: 13px;
-  display: grid; justify-items: center; gap: 6px; opacity: 0.8;
+  z-index: 5; color: var(--ink-60); font-weight: 800; font-size: 13px;
+  display: grid; justify-items: center; gap: 6px; opacity: 0.9;
 }
 .hint .wheel {
   width: 22px; height: 36px; border: 2px solid currentColor; border-radius: 12px;
@@ -131,9 +131,57 @@ h2 { font-size: clamp(30px, 4.6vw, 54px); }
 /* появление элементов внутри сцены от --p */
 .rise { opacity: calc((var(--p) - var(--at, 0)) * 6); transform: translateY(calc((1 - min(1, (var(--p) - var(--at, 0)) * 6)) * 34px)); }
 
+.note { margin-top: 20px; font-weight: 700; font-size: 14px; color: var(--ink-60); }
+
+.spark { position: absolute; font-size: 24px; animation: twinkle 3.2s ease-in-out infinite; pointer-events: none; }
+.spark.s2 { animation-delay: 1.1s; }
+.spark.s3 { animation-delay: 2.2s; }
+@keyframes twinkle { 0%, 100% { opacity: 0.2; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1.15); } }
+
+/* облака и холмы — декорации миров */
+.cloud {
+  position: absolute; width: 190px; height: 56px; border-radius: 999px;
+  background: rgba(255, 255, 255, 0.75); filter: blur(1px);
+  animation: drift 26s linear infinite alternate;
+}
+.cloud::before, .cloud::after {
+  content: ""; position: absolute; background: inherit; border-radius: 50%;
+}
+.cloud::before { width: 74px; height: 74px; left: 28px; top: -34px; }
+.cloud::after { width: 52px; height: 52px; right: 34px; top: -22px; }
+.cloud.c1 { top: 18%; left: 8%; }
+.cloud.c2 { top: 30%; right: 10%; transform: scale(0.7); animation-duration: 34s; }
+@keyframes drift { from { translate: 0 0; } to { translate: 46px -8px; } }
+.hills { position: absolute; left: -10%; right: -10%; bottom: -12%; height: 34%; z-index: 1; pointer-events: none; }
+.hills::before, .hills::after {
+  content: ""; position: absolute; border-radius: 50%;
+  width: 70%; height: 100%;
+}
+.hills::before { left: -12%; bottom: -46%; background: rgba(38, 33, 74, 0.75); }
+.hills::after { right: -14%; bottom: -58%; background: rgba(38, 33, 74, 0.55); }
+.hills.warm::before { background: rgba(242, 169, 188, 0.3); }
+.hills.warm::after { background: rgba(242, 206, 123, 0.28); }
+
+/* ================= СЦЕНА · знакомство ================= */
+.s-meet .bg { background: linear-gradient(180deg, #FDF9F0, var(--cream) 55%, #F4E9DA); }
+.s-meet .kicker { color: var(--pink-deep); }
+.s-meet .pet-wrap { position: relative; margin-top: 14px; }
+.s-meet .pet { width: clamp(190px, 24vw, 260px); filter: drop-shadow(0 22px 26px rgba(58, 51, 48, 0.18)); }
+.s-meet .spark { color: var(--sun); }
+.s-meet .spark.s1 { top: -4px; left: -30px; }
+.s-meet .spark.s2 { top: 30px; right: -26px; }
+.s-meet .spark.s3 { bottom: 8px; left: -18px; }
+.chips { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 24px; }
+.chip {
+  background: #fff; border-radius: 999px; padding: 10px 18px;
+  font-weight: 800; font-size: 14px; color: var(--ink);
+  box-shadow: 0 14px 34px -16px rgba(58, 51, 48, 0.35);
+}
+.chip.accent { background: var(--ink); color: var(--cream); }
+
 /* ================= СЦЕНА 0 · ночь ================= */
 .s-night .bg { background: linear-gradient(180deg, var(--night-1), var(--night-2) 70%, #514a85); }
-.s-night, .s-night h1 { color: #F6EFE3; }
+.s-night, .s-night h1, .s-night h2 { color: #F6EFE3; }
 .s-night .sub { color: rgba(246, 239, 227, 0.75); }
 .star { position: absolute; background: #fff; border-radius: 50%; opacity: 0.7; animation: twinkle 3s ease-in-out infinite; }
 @keyframes twinkle { 0%, 100% { opacity: 0.15; } 50% { opacity: 0.85; } }
@@ -165,9 +213,14 @@ h2 { font-size: clamp(30px, 4.6vw, 54px); }
 }
 .s-dawn .kicker { color: var(--pink-deep); }
 .s-dawn .pet-wrap { position: relative; height: clamp(220px, 30vw, 320px); width: clamp(220px, 30vw, 320px); margin-top: 10px; }
-.s-dawn .pet-wrap img { position: absolute; inset: 0; transition: opacity 0.2s linear; }
-.s-dawn .pet-wrap .wake { opacity: var(--p); }
-.s-dawn .pet-wrap .sleep-img { opacity: calc(1 - var(--p)); }
+.s-dawn .pet-wrap img { position: absolute; inset: 0; }
+/* Просыпание — монтажный стык на p=0.5 без наложения двух лиц:
+   кадр меняется мгновенно, жизнь придаёт поп-масштаб проснувшейся. */
+.s-dawn .pet-wrap .sleep-img { opacity: clamp(0, (0.5 - var(--p)) * 1000, 1); }
+.s-dawn .pet-wrap .wake {
+  opacity: clamp(0, (var(--p) - 0.5) * 1000, 1);
+  transform: scale(calc(0.88 + clamp(0, (var(--p) - 0.5) * 8, 1) * 0.12));
+}
 .s-dawn .tapme { font-size: 13px; font-weight: 800; color: var(--ink-60); margin-top: 8px; }
 
 /* ================= СЦЕНА 2 · настроения ================= */
