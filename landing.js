@@ -237,6 +237,13 @@
   /* ---------- главный цикл ---------- */
   const moonEl = document.querySelector(".moon");
   const sunEl = document.querySelector(".sunball");
+  // Небесное «колесо»: солнце и луна сидят на противоположных концах одной
+  // орбиты (пивот под горизонтом в точке 50% / 90%, эллипс 42vw × 72vh).
+  // Прогресс колеса сквозной на ночь+утро, поэтому луна садится ровно там,
+  // где потом встаёт солнце, а не живёт своей отдельной траекторией.
+  const nightI = scenes.findIndex(s => s.dataset.name === "Night");
+  const skyStart = starts[nightI];
+  const skySpan = lens[nightI] + lens[nightI + 1];
   // ?t=0.35 — замороженный кадр таймлайна для скриншотов и отладки.
   const FORCED = new URLSearchParams(location.search).get("t");
   let active = -1;
@@ -265,15 +272,18 @@
     if (name === "States") setMoods(p);
     if (name === "Languages") bubbles.forEach(b => b.classList.toggle("show", p >= +b.dataset.at));
     if (name === "Privacy" && !reduced) orbit(now);
-    // Луна и солнце плывут по небу дугой, а не по вертикали.
-    if (name === "Night") {
-      moonEl.style.left = `${75 - 58 * p}%`;
-      moonEl.style.top = `${40 - 26 * Math.sin(p * Math.PI)}%`;
-    }
-    if (name === "Morning") {
-      const th = p * Math.PI / 2;
-      sunEl.style.left = `${8 + 42 * (1 - Math.cos(th))}%`;
-      sunEl.style.top = `${72 - 52 * Math.sin(th)}%`;
+    // Угол солнца: -84° на входе в ночь, 0° (восход из-за холмов слева)
+    // на ~16% утра, +76° к концу утра. Луна — в противофазе: стартует почти
+    // в зените, за ночь съезжает вправо и уходит за холмы как раз к восходу.
+    if (name === "Night" || name === "Morning") {
+      const wp = Math.min(1, Math.max(0, (u - skyStart) / skySpan));
+      const a = (-84 + 160 * wp) * Math.PI / 180;
+      const cx = 42 * Math.cos(a);
+      const cy = 72 * Math.sin(a);
+      sunEl.style.left = `${50 - cx}%`;
+      sunEl.style.top = `${90 - cy}%`;
+      moonEl.style.left = `${50 + cx}%`;
+      moonEl.style.top = `${90 + cy}%`;
     }
 
     requestAnimationFrame(frame);

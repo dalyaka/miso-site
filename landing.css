@@ -204,12 +204,20 @@ h1 .hl::after {
 
 /* ================= СЦЕНА 0 · ночь ================= */
 .s-night .bg { background: linear-gradient(180deg, var(--night-1), var(--night-2) 70%, #514a85); }
+/* К концу ночи у горизонта теплеет (луна уже садится, солнце близко),
+   верх неба остаётся тёмным — светлый текст сцены читается до самого стыка. */
+.s-night .bg::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 45%, rgba(201, 141, 138, 0.5) 82%, #C98D8A);
+  opacity: clamp(0, (var(--p, 0) - 0.55) * 1.8, 0.85);
+}
 .s-night, .s-night h1, .s-night h2 { color: #F6EFE3; }
 .s-night .sub { color: rgba(246, 239, 227, 0.75); }
 .star { position: absolute; background: #fff; border-radius: 50%; opacity: 0.7; animation: twinkle 3s ease-in-out infinite; }
 @keyframes twinkle { 0%, 100% { opacity: 0.15; } 50% { opacity: 0.85; } }
 .moon {
-  position: absolute; left: 75%; top: 40%; width: 92px; height: 92px; border-radius: 50%;
+  position: absolute; left: 54%; top: 18%; width: 92px; height: 92px;
+  margin: -46px 0 0 -46px; border-radius: 50%;
   background: #F6EFC9; box-shadow: 0 0 60px 14px rgba(246, 239, 201, 0.35);
 }
 .moon::after {
@@ -226,9 +234,18 @@ h1 .hl::after {
 @keyframes zfloat { 0% { transform: translate(0, 0); opacity: 0; } 30% { opacity: 1; } 100% { transform: translate(14px, -26px); opacity: 0; } }
 
 /* ================= СЦЕНА 1 · утро ================= */
-.s-dawn .bg { background: linear-gradient(180deg, #FBD3B8, #FAE7CF 45%, var(--cream)); }
+/* Утро начинается предрассветным: сиреневый верх и персиковый горизонт
+   (подхватывает тёплую полосу конца ночи), к пробуждению (p≈0.5)
+   поверх набирает силу прежний светлый градиент. */
+.s-dawn .bg { background: linear-gradient(180deg, #B9A6C6, #F6C6A8 55%, var(--cream)); }
+.s-dawn .bg::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, #FBD3B8, #FAE7CF 45%, var(--cream));
+  opacity: clamp(0, var(--p, 0) * 2.4 - 0.2, 1);
+}
 .sunball {
-  position: absolute; left: 8%; top: 72%; width: 110px; height: 110px; border-radius: 50%;
+  position: absolute; left: 46%; top: 162%; width: 110px; height: 110px;
+  margin: -55px 0 0 -55px; border-radius: 50%;
   background: radial-gradient(circle, #FFE9A8, var(--sun));
   box-shadow: 0 0 80px 22px rgba(242, 206, 123, 0.5);
 }
